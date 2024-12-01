@@ -31,7 +31,6 @@ const items = [
     },
 ]
 
-
 const AppSidebar = () => {
     const pathname = usePathname()
     const { open, setOpen } = useSidebar()
@@ -42,14 +41,12 @@ const AppSidebar = () => {
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-2'>
                         <h1 className='text-xl font-bold text-primary/80'>Thi</h1>
-
                     </div>
                     {/* 
                     <Button variant='outline' onClick={() => setOpen(!open)}>
                         <ChevronLeft />
                     </Button> */}
                 </div>
-
             </SidebarHeader>
 
             <SidebarContent>
@@ -74,7 +71,6 @@ const AppSidebar = () => {
                             ))}
                         </SidebarMenu>
                     </SidebarGroupContent>
-
                 </SidebarGroup>
 
                 <SidebarGroup>
@@ -84,10 +80,12 @@ const AppSidebar = () => {
                             {projects.map((project) => (
                                 <SidebarMenuItem key={project.name}>
                                     <SidebarMenuButton asChild>
-                                        <div onClick={() => setProjectId(project.id)} className='w-full !p-0 cursor-pointer'>
-                                            <div className={cn('rounded-sm border size-8 shrink-0 flex items-center justify-center text-sm text-primary bg-white', {
-                                                'bg-primary text-white': projectId === project.id
-                                            })}>
+                                        <div onClick={() => setProjectId(project.id)} className='w-full cursor-pointer !p-0'>
+                                            <div
+                                                className={cn('flex size-8 shrink-0 items-center justify-center rounded-sm border bg-white text-sm text-primary', {
+                                                    'bg-primary text-white': projectId === project.id,
+                                                })}
+                                            >
                                                 {project.name[0]}
                                             </div>
                                             <span>{project.name}</span>
@@ -96,20 +94,20 @@ const AppSidebar = () => {
                                 </SidebarMenuItem>
                             ))}
 
-                            <div className="h-2"></div>
+                            <div className='h-2'></div>
 
-                            {open && (<SidebarMenuItem>
-                                <Link href='/create'>
-                                    <Button variant='outline'>
-                                        <Plus />
-                                        Create Project</Button>
-                                </Link>
-                            </SidebarMenuItem>)}
+                            {open && (
+                                <SidebarMenuItem>
+                                    <Link href='/create'>
+                                        <Button variant='outline'>
+                                            <Plus />
+                                            Create Project
+                                        </Button>
+                                    </Link>
+                                </SidebarMenuItem>
+                            )}
                         </SidebarMenu>
-
-
                     </SidebarGroupContent>
-
                 </SidebarGroup>
             </SidebarContent>
         </Sidebar>
