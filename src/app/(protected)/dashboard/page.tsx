@@ -6,9 +6,7 @@ import { useUser } from '@clerk/nextjs'
 const DashboardPage = () => {
     const { user } = useUser()
     return (
-        <SidebarLayout>
-            <div>{user?.firstName}</div>
-        </SidebarLayout>
+        <div>Dashboard</div>
     )
 }
 

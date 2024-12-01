@@ -21,14 +21,45 @@ model Post {
 
 model User {
     id          String   @id @default(uuid())
+
     emailAddress String   @unique
     firstName   String?
     lastName    String?
     imageUrl    String?
     credits     Int      @default(150)
+
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 
     @@index([emailAddress])
+
+    userToProjects UserToProjects[]
+
 }
 
+model Project {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name      String
+    githubUrl String
+
+    deletedAt  DateTime?
+   
+    userToProjects UserToProjects[]
+}
+
+model UserToProjects {
+    id  String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    userId String
+    ProjectId String
+
+    user   User   @relation(fields: [userId], references: [id])
+    project Project @relation(fields: [ProjectId], references: [id])
+
+    @@unique([userId, ProjectId])
+}

@@ -1,8 +1,10 @@
 'use client'
 
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
+import { Button } from '@/components/ui/button'
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar'
+import UseProject from '@/hooks/use-project'
 import { cn } from '@/lib/utils'
-import { Bot, CreditCard, LayoutDashboardIcon, Presentation } from 'lucide-react'
+import { Bot, CreditCard, LayoutDashboardIcon, Plus, Presentation } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -14,7 +16,7 @@ const items = [
     },
     {
         title: 'Q&A',
-        url: '/aq',
+        url: '/qa',
         icon: Bot,
     },
     {
@@ -29,12 +31,26 @@ const items = [
     },
 ]
 
+
 const AppSidebar = () => {
     const pathname = usePathname()
-
+    const { open, setOpen } = useSidebar()
+    const { projects, projectId, setProjectId } = UseProject()
     return (
         <Sidebar collapsible='icon' variant='floating'>
-            <SidebarHeader>Logo</SidebarHeader>
+            <SidebarHeader>
+                <div className='flex items-center justify-between'>
+                    <div className='flex items-center gap-2'>
+                        <h1 className='text-xl font-bold text-primary/80'>Thi</h1>
+
+                    </div>
+                    {/* 
+                    <Button variant='outline' onClick={() => setOpen(!open)}>
+                        <ChevronLeft />
+                    </Button> */}
+                </div>
+
+            </SidebarHeader>
 
             <SidebarContent>
                 <SidebarGroup>
@@ -58,6 +74,42 @@ const AppSidebar = () => {
                             ))}
                         </SidebarMenu>
                     </SidebarGroupContent>
+
+                </SidebarGroup>
+
+                <SidebarGroup>
+                    <SidebarGroupLabel>Your Projects</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {projects.map((project) => (
+                                <SidebarMenuItem key={project.name}>
+                                    <SidebarMenuButton asChild>
+                                        <div onClick={() => setProjectId(project.id)} className='w-full !p-0 cursor-pointer'>
+                                            <div className={cn('rounded-sm border size-8 shrink-0 flex items-center justify-center text-sm text-primary bg-white', {
+                                                'bg-primary text-white': projectId === project.id
+                                            })}>
+                                                {project.name[0]}
+                                            </div>
+                                            <span>{project.name}</span>
+                                        </div>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+
+                            <div className="h-2"></div>
+
+                            {open && (<SidebarMenuItem>
+                                <Link href='/create'>
+                                    <Button variant='outline'>
+                                        <Plus />
+                                        Create Project</Button>
+                                </Link>
+                            </SidebarMenuItem>)}
+                        </SidebarMenu>
+
+
+                    </SidebarGroupContent>
+
                 </SidebarGroup>
             </SidebarContent>
         </Sidebar>
