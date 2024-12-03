@@ -1,4 +1,4 @@
-import { UserToProjects } from './../../../../node_modules/.pnpm/@prisma+client@5.14.0_prisma@5.14.0/node_modules/.prisma/client/index.d'
+import { pollCommits } from '@/lib/github'
 import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc'
 import { z } from 'zod'
 
@@ -14,7 +14,7 @@ export const projectRouter = createTRPCRouter({
         .mutation(async ({ ctx, input }) => {
             const project = await ctx.db.project.create({
                 data: {
-                    githubUrl: input.githubToken,
+                    githubUrl: input.githubUrl,
                     name: input.name,
                     userToProjects: {
                         create: {
@@ -23,7 +23,7 @@ export const projectRouter = createTRPCRouter({
                     },
                 },
             })
-
+            await pollCommits(project.id)
             return project
         }),
 

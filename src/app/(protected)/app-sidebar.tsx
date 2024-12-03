@@ -77,7 +77,7 @@ const AppSidebar = () => {
                     <SidebarGroupLabel>Your Projects</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {projects.map((project) => (
+                            {projects?.map((project) => (
                                 <SidebarMenuItem key={project.name}>
                                     <SidebarMenuButton asChild>
                                         <div onClick={() => setProjectId(project.id)} className='w-full cursor-pointer !p-0'>

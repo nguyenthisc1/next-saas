@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 type FormInput = {
-    repoUrl: string
+    githubUrl: string
     projectName: string
     githubToken?: string
 }
@@ -21,7 +21,7 @@ const CreatePage = () => {
     function onSubmit(data: FormInput) {
         createProject.mutate(
             {
-                githubUrl: data.repoUrl,
+                githubUrl: data.githubUrl,
                 name: data.projectName,
                 githubToken: data.githubToken,
             },
@@ -50,9 +50,9 @@ const CreatePage = () => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Input {...register('projectName', { required: true })} placeholder='Project Name' />
                             <div className='h-2'></div>
-                            <Input {...register('repoUrl', { required: true })} placeholder='Github URL' />
+                            <Input {...register('githubUrl', { required: true })} placeholder='Github URL' />
                             <div className='h-2'></div>
-                            <Input {...register('githubToken', { required: true })} placeholder='Github Token (Optional)' />
+                            <Input {...register('githubToken')} placeholder='Github Token (Optional)' />
                             <div className='h-4'></div>
                             <Button type='submit' disabled={createProject.isPending}>
                                 Create project
