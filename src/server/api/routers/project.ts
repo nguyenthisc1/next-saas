@@ -1,4 +1,5 @@
 import { pollCommits } from '@/lib/github'
+import { indexGithubRepo } from '@/lib/github-loader'
 import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc'
 import { z } from 'zod'
 
@@ -23,7 +24,12 @@ export const projectRouter = createTRPCRouter({
                     },
                 },
             })
-            // project && (await pollCommits(project.id))
+
+            if (project) {
+                await indexGithubRepo(project.id, input.githubUrl, input.githubToken)
+                await pollCommits(project.id)
+            }
+
             return project
         }),
 
