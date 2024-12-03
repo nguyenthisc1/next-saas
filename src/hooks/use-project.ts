@@ -1,5 +1,4 @@
 import { api } from '@/trpc/react'
-import { Project } from '@prisma/client'
 import { useLocalStorage } from 'usehooks-ts'
 
 const UseProject = () => {

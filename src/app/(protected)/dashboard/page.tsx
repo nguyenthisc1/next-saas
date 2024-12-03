@@ -1,5 +1,6 @@
 'use client'
 
+import CommitLog from '@/app/(protected)/dashboard/commit-log'
 import UseProject from '@/hooks/use-project'
 import { ExternalLink, Github } from 'lucide-react'
 import Link from 'next/link'
@@ -39,7 +40,8 @@ const DashboardPage = () => {
         </div>
 
         <div className="mt-8"></div>
-        CommitLog
+
+        <CommitLog />
     </div>
 }
 
