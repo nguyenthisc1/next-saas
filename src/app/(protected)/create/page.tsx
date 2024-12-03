@@ -1,5 +1,6 @@
 'use client'
 
+import { LoadingSpinner } from '@/components/loading-spinner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import UseRefetch from '@/hooks/use-refetch'
@@ -55,7 +56,7 @@ const CreatePage = () => {
                             <Input {...register('githubToken')} placeholder='Github Token (Optional)' />
                             <div className='h-4'></div>
                             <Button type='submit' disabled={createProject.isPending}>
-                                Create project
+                                {createProject.isPending && <LoadingSpinner />}  Create project
                             </Button>
                         </form>
                     </div>
